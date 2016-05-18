@@ -4,7 +4,7 @@ include("conn/conn.php");
 $sql="select a.*,b.userName from tb_leaveword as a,tb_user as b where a.userId=b.id order by a.createTime DESC";
 $res1=mysql_query($sql);
 
-$pagesize=3;
+$pagesize=5;
 $count=mysql_num_rows($res1);
 $pages=ceil($count/$pagesize);
 

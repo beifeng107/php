@@ -54,12 +54,26 @@ function regFormChk() {
 		return false;
 	}
 
-    var mailpatt= new RegExp("/\w+@\w+\.(com)$/");
+    var mailpatt= /\w+@\w+\.(com)$/;
     if (!mailpatt.test(regForm.email.value)) {
     	alert("邮箱格式不正确");
 		regForm.email.focus();
 		return false;
-    };
+    }
+
+    var telpatt= /\d{3,4}-\d{7,8}$|1[3,5,8]\d{9}$/;
+    if (!telpatt.test(regForm.tel.value)) {
+		alert("电话号码格式不正确");
+		regForm.tel.focus();
+		return false;
+	}
+
+	var qqpatt= /^[^0]\d{6,9}$/;
+	if (!qqpatt.test(regForm.qq.value)) {
+		alert("QQ号码格式不正确");
+		regForm.qq.focus();
+		return false;
+	}
 
 }
 
