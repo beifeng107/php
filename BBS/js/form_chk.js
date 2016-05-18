@@ -54,7 +54,12 @@ function regFormChk() {
 		return false;
 	}
 
-
+    var mailpatt= new RegExp("/\w+@\w+\.(com)$/");
+    if (!mailpatt.test(regForm.email.value)) {
+    	alert("邮箱格式不正确");
+		regForm.email.focus();
+		return false;
+    };
 
 }
 

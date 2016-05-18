@@ -17,6 +17,7 @@
 					<option>2</option>
 					<option>3</option>
 					<option>4</option>
+					<option>5</option>
 				</select><img name="img" src="images/1.jpg"/><br/>
         联系地址：<input type="text" name="address"><br/>
         <input type="submit" name="submit" onclick="return regFormChk()" value="注册">

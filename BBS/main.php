@@ -2,7 +2,20 @@
 
 include("conn/conn.php");
 $sql="select a.*,b.userName from tb_leaveword as a,tb_user as b where a.userId=b.id order by a.createTime DESC";
-$res=mysql_query($sql);
+$res1=mysql_query($sql);
+
+$pagesize=3;
+$count=mysql_num_rows($res1);
+$pages=ceil($count/$pagesize);
+
+if (!empty($_GET["page"])) {
+	$nowpage=$_GET["page"];
+} else {
+	$nowpage=1;
+}
+$pagesql="select a.*,b.userName from tb_leaveword as a,tb_user as b where a.userId=b.id order by a.createTime DESC limit ".($nowpage-1)*$pagesize.",$pagesize";
+
+$res=mysql_query($pagesql);
 
 ?>
 <table border="0">
@@ -19,12 +32,31 @@ $res=mysql_query($sql);
 		} else {
 			$time=date("m-d",$tmp);
 		}
-		
+		$title=iconv_substr($row["title"],0,20);
 		echo "<tr>
-		      <td width='400'><a target='_blank' href='showleave.php?leaveid=$row[id]'>$row[title]</a></td>
+		      <td width='400'><a target='_blank' href='showleave.php?leaveid=$row[id]'>$title</a></td>
 		      <td>$row[userName]</td>
 		      <td>$time</td>
 		      </tr>";
 	}
 	?>
+	<tr>
+		<td>
+			共<?php echo $pages ?>页&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<?php
+				echo "当前第".$nowpage."页&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+				if ($nowpage>1) {
+				 	$lastpage=$nowpage-1;
+				 	echo "<a href='index.php?page=$lastpage'>上一页</a>&nbsp&nbsp";
+			 	}
+			 	
+				if ($nowpage!=$pages) {
+				 	$nextpage=$nowpage+1;
+				 	echo "<a href='index.php?page=$nextpage'>下一页</a>";
+			 	} 
+
+			?>
+		</td>
+	</tr>
 </table>
+
