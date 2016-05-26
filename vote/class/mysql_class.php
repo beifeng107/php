@@ -17,15 +17,17 @@ class mysql{
 	}
 
 	function arr_res($res){
-		return mysql_fetch_array($res,$this->conn);
+		return mysql_fetch_array($res);
 	}
 
 	function num_res($res){
-		return mysql_num_rows($res,$this->conn);
+		return mysql_num_rows($res);
 	}
 
 	function select($table,$colume,$condition){
-		return $this->execute("SELECT $colume FROM $table WHERE $condition");
+		$sql="SELECT $colume FROM $table WHERE $condition";
+		//echo $sql;
+		return $this->execute($sql);
 	}
 
 	function insert($table,$colume,$value){
@@ -46,4 +48,6 @@ class mysql{
 	
 
 }
+
+$db = new mysql('localhost','root','111111','vote');
 ?>
